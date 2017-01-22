@@ -1,1 +1,2 @@
-[Heroku-linkki](https://floating-river-39154.herokuapp.com/breweries)
+Linkki Herokuun:
+https://floating-river-39154.herokuapp.com/breweries
