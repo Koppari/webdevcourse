@@ -18,6 +18,6 @@ class Beer < ActiveRecord::Base
 
 	def average_rating
 		ratings.average(:score)
-	end
+  end
 
 end

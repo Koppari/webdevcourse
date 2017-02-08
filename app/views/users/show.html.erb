@@ -5,9 +5,20 @@
 </h2>
 
 <% if @user.ratings.empty? %>
-has made no ratings yet.
+    has made no ratings yet.
 <% else %>
-has made <%= @user.ratings.count %> ratings with an average of <%= @user.rating_average %>
+    has made <%= @user.ratings.count %> ratings with an average of <%= @user.rating_average %>
+<% end %>
+
+<% if @user.beer_clubs.any? %>
+
+    <p>member of
+      <% @user.beer_clubs.each do |club| %>
+          <%= link_to club.name, club%>
+      <% end %>
+    </p>
+<% else %>
+    <p>no beerclub memberships</p>
 <% end %>
 
 <h3>
@@ -15,12 +26,21 @@ has made <%= @user.ratings.count %> ratings with an average of <%= @user.rating_
 </h3>
 
 <p>
- <% @user.ratings.each do |rating| %>
-   <li><%= rating %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %> </li>
- <% end %>
+  <% @user.ratings.each do |rating| %>
+    <li>
+      <%= rating %>
+      <% if @user == current_user %>
+          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
+<% end %>
+
 </p>
 
 <br><br>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+<% if @user==current_user%>
+    <%= link_to 'change password', edit_user_path(@user) %> <br>
+    <%= link_to 'destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }  %>
+<% end %>
