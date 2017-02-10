@@ -11,14 +11,13 @@
 <% end %>
 
 <% if @user.beer_clubs.any? %>
-
     <p>member of
       <% @user.beer_clubs.each do |club| %>
           <%= link_to club.name, club%>
       <% end %>
     </p>
 <% else %>
-    <p>no beerclub memberships</p>
+    <p>no beer club memberships</p>
 <% end %>
 
 <h3>
@@ -34,11 +33,19 @@
       <% end %>
     </li>
 <% end %>
-
 </p>
 
-<br><br>
 
+<% if @user.favorite_style %>
+    users favorite beer style is <%= @user.favorite_style %>
+<% end %>
+<br>
+<% if @user.favorite_brewery %>
+    users favorite brewery is <%= @user.favorite_brewery %>
+<% end %>
+
+
+<br><br>
 
 <% if @user==current_user%>
     <%= link_to 'change password', edit_user_path(@user) %> <br>
