@@ -7,7 +7,7 @@
 <% if @user.ratings.empty? %>
     has made no ratings yet.
 <% else %>
-    has made <%= @user.ratings.count %> ratings with an average of <%= @user.rating_average %>
+    has made <%= pluralize(@user.ratings.count, "rating") %> with an average of <%= @user.rating_average %>
 <% end %>
 
 <% if @user.beer_clubs.any? %>

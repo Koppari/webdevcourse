@@ -1,2 +1,0 @@
-Linkki Herokuun:
-https://floating-river-39154.herokuapp.com/breweries

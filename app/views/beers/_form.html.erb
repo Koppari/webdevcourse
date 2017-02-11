@@ -1,9 +1,29 @@
 <%= form_for(@beer) do |f| %>
-  name: <%= f.text_field :name %>
-  style: <%= f.select :style, options_for_select(@styles) %>
-  brewery: <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
-  <br><br>	
-  <%= f.submit %>
+    <% if @beer.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@beer.errors.count, "error") %> prohibited this beer from being saved:</h2>
+
+          <ul>
+            <% @beer.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div><br>
+    <div class="field">
+      <%= f.label :style %><br>
+      <%= f.select :style, options_for_select(@styles) %>
+    </div><br>
+    <div class="field">
+      <%= f.label :brewery %><br>
+      <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :name) %>
+    </div><br>
+    <div class="actions">
+      <%= f.submit %>
+    </div><br>
 <% end %>
-
-

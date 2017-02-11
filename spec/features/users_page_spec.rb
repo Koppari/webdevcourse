@@ -2,9 +2,11 @@ require 'rails_helper'
 
 include Helpers
 
-describe "User" do
+describe "Users page" do
   before :each do
-    FactoryGirl.create :user
+    user = FactoryGirl.create :user
+    beer = FactoryGirl.create(:beer)
+    rating = FactoryGirl.create(:rating, beer:beer, user:user)
   end
 
   describe "who has signed up" do
@@ -32,5 +34,20 @@ describe "User" do
     expect{
       click_button('Create User')
     }.to change{User.count}.by(1)
+  end
+
+  it "ratings shown on user page" do
+    visit user_path(1)
+    expect(page).to have_content "has made 1 rating with an average of 10"
+  end
+
+  it "favorite beer shown on user page" do
+    visit user_path(1)
+    expect(page).to have_content "users favorite beer style is Lager"
+  end
+
+  it "favorite brewery shown on user page" do
+    visit user_path(1)
+    expect(page).to have_content "users favorite brewery is anonymous"
   end
 end
