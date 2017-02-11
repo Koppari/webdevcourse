@@ -38,16 +38,16 @@ describe "Users page" do
 
   it "ratings shown on user page" do
     visit user_path(1)
-    expect(page).to have_content "has made 1 rating with an average of 10"
+    expect(page).to have_content "Has made 1 rating with an average of 10"
   end
 
   it "favorite beer shown on user page" do
     visit user_path(1)
-    expect(page).to have_content "users favorite beer style is Lager"
+    expect(page).to have_content "Users favorite beer style is Lager"
   end
 
   it "favorite brewery shown on user page" do
     visit user_path(1)
-    expect(page).to have_content "users favorite brewery is anonymous"
+    expect(page).to have_content "Users favorite brewery is anonymous"
   end
 end
