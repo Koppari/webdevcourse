@@ -9,5 +9,11 @@ script:
  - bundle exec rake db:test:prepare
  - bundle exec rspec -fd spec/
 
- notifications:
+notifications:
   email: false
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: 6400b7d0-b7cc-41b9-8419-2db96af55d3a
+  run: "rake db:migrate"
