@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Beers</h1>
+<h1>Beers</h1>
 
 <table>
   <thead>
@@ -18,8 +18,8 @@
         <td><%= link_to beer.name, beer_path(beer.id) %></td>
         <td><%= beer.style %></td>
         <td><%= link_to beer.brewery.name, beer.brewery %></td>
-        <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
-        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_beer_path(beer) if current_user %></td>
+        <td><%= link_to 'Remove', beer, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td>
       </tr>
     <% end %>
   </tbody>
@@ -27,6 +27,6 @@
 
 <br>
 
-<%= link_to 'New Beer', new_beer_path %>
-<%= link_to 'List of breweries', breweries_path %>
+<%= link_to('New beer', new_beer_path) if current_user %>
+<%= link_to 'Brewery list', breweries_path %>
 
