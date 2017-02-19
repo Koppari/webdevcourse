@@ -10,4 +10,14 @@ class PlacesController < ApplicationController
       render :index
     end
   end
+
+  def show
+    @place = BeermappingApi.fetch_place_by(params[:id]).first()
+    if @place.nil?
+      redirect_to places_path, notice: "Error!"
+    else
+      render :show
+    end
+  end
+
 end
