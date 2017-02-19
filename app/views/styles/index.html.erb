@@ -13,10 +13,9 @@
   <tbody>
   <% @styles.each do |style| %>
       <tr>
-        <td><%= style.name %></td>
-        <td><%= link_to 'Show', style %></td>
-        <td><%= link_to 'Edit', edit_style_path(style) %></td>
-        <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to style.name, style_path(style.id) %></td>
+        <td><%= link_to 'Edit', edit_style_path(style) if current_user %></td>
+        <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td>
       </tr>
   <% end %>
   </tbody>
@@ -24,4 +23,6 @@
 
 <br>
 
+<% if current_user %>
 <%= link_to 'New Style', new_style_path %>
+<% end %>
