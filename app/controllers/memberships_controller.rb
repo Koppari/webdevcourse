@@ -15,7 +15,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.all - current_user.beer_clubs
+    @beer_club = BeerClub.all - current_user.beer_club
   end
 
   # GET /memberships/1/edit
@@ -29,12 +29,15 @@ class MembershipsController < ApplicationController
     @membership = Membership.new(membership_params)
     @membership.user = current_user
 
+    clubId = @membership.beer_club_id
+    @beer_club = BeerClub.find(clubId)
+
     respond_to do |format|
-      if not current_user.beer_clubs.include?  @membership.beer_club and @membership.save
-        format.html { redirect_to @membership.user, notice: "You have joined #{@membership.beer_club.name}" }
+      if not current_user.beer_clubs.include? @membership.beer_club and @membership.save
+        format.html { redirect_to @beer_club, notice: "#{current_user.username}, welcome to #{@membership.beer_club.name}!" }
         format.json { render :show, status: :created, location: @membership }
       else
-        @beer_clubs = BeerClub.all - current_user.beer_clubs
+        @beer_club = BeerClub.all - current_user.beer_club
         format.html { render :new }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
@@ -46,7 +49,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to @membership, notice: 'You have left the club!' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -58,9 +61,14 @@ class MembershipsController < ApplicationController
   # DELETE /memberships/1
   # DELETE /memberships/1.json
   def destroy
+    clubId = @membership.beer_club_id
+    @beer_club = BeerClub.find(clubId)
+    @user = current_user
+
     @membership.destroy
+
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to @user, notice: "Membership in #{@membership.beer_club.name} ended." }
       format.json { head :no_content }
     end
   end

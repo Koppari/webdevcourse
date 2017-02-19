@@ -5,12 +5,18 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs
   # GET /beer_clubs.json
   def index
-    @beer_clubs = BeerClub.all
+    @beer_club = BeerClub.all
   end
 
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    if (@beer_club.isInClub(current_user.id, @beer_club.id))
+      @membership = Membership.where(beer_club_id: @beer_club.id).first
+    else
+      @membership = Membership.new
+      @membership.beer_club = @beer_club
+    end
   end
 
   # GET /beer_clubs/new
