@@ -6,8 +6,7 @@
 <ul>
 
   <% @top_beers.each do |beer| %>
-      <li> <%= beer.name %>  </li>
-      <li> <%= beer.average_rating %>  </li>
+      <li> <%= beer.name  %> <%= beer.average_rating %>  </li>
   <% end %>
 </ul>
 </tbody>
@@ -18,7 +17,7 @@
 <ul>
 
   <% @top_breweries.each do |brewery| %>
-      <li> <%= brewery.name %>  </li>
+      <li> <%= brewery.name %> <%= brewery.average_rating %> </li>
   <% end %>
 </ul>
 </tbody>
@@ -28,7 +27,7 @@
 <tbody>
 <ul>
   <% @top_styles.each do |style| %>
-      <li> <%= style.name %>  </li>
+      <li> <%= style.name %> <%= style.average_rating %>   </li>
   <% end %>
 </ul>
 </tbody>
@@ -54,4 +53,4 @@
 
 <br>
 
-<%= link_to 'New Rating', new_rating_path%>
+<%= link_to('New Rating', new_rating_path, class:'btn btn-primary') if current_user %>
