@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @brewery.name %></h2>
+<h2><%= @brewery.name %>
+  <% if not @brewery.active  %>
+      <span class="label label-info">retired</span>
+  <% end %>
+</h2>
 
 <p>
    <i>Established <%= @brewery.year %></i>
@@ -26,6 +30,6 @@ Has <%= pluralize(@brewery.ratings.count, "rating") %>, average <%= @brewery.ave
 </p>
 
 <% if current_user %>
-<%= link_to 'Edit', edit_brewery_path(@brewery) %>|
+<%= link_to 'Edit', edit_brewery_path(@brewery) %>
     <% end %>
 <%= link_to 'Back', breweries_path %>

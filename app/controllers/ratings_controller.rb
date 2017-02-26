@@ -1,13 +1,16 @@
 class RatingsController < ApplicationController
 
-	def index
-		@ratings = Rating.all
-	end
+  def index
+    @ratings = Rating.all
+    @top_breweries = Brewery.top 3
+    @top_styles = Style.top 3
+    @top_beers = Beer.top 3
+  end
 
-	def new
-		@rating = Rating.new
-		@beers = Beer.all
-	end
+  def new
+    @rating = Rating.new
+    @beers = Beer.all
+  end
 
   def create
     @rating = Rating.new params.require(:rating).permit(:score, :beer_id)
@@ -23,10 +26,10 @@ class RatingsController < ApplicationController
     end
   end
 
-	def destroy
-    	rating = Rating.find(params[:id])
-    	rating.delete if current.user == rating.user
-    	redirect_to :back
-    end
+  def destroy
+    rating = Rating.find(params[:id])
+    rating.delete if current.user == rating.user
+    redirect_to :back
+  end
 
 end

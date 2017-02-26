@@ -2,28 +2,26 @@ require 'rails_helper'
 
 include Helpers
 
-describe "Beers page" do
-  let!(:brewery) { FactoryGirl.create :brewery, name:"Koff" }
-  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery }
-  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
-  let!(:user) { FactoryGirl.create :user }
-
+describe "Beers" do
   before :each do
+    FactoryGirl.create :user
+    FactoryGirl.create :style
+    FactoryGirl.create :brewery, name: "Schlenkerla"
     sign_in(username:"Pekka", password:"Foobar1")
+    visit new_beer_path
   end
 
-  it "is added with a valid name" do
-    visit new_beer_path
-    fill_in('beer[name]', with: 'test')
-    expect {
+  it "can be added if valid name given" do
+    fill_in('beer_name', with:'Urbock')
+    expect{
       click_button('Create Beer')
-    }.to change { Beer.count }.by(1)
+    }.to change{Beer.count}.by(1)
   end
 
-  it "without a proper name doesnt get added" do
-    visit new_beer_path
-    expect {
+  it "can not be added if without name" do
+    expect{
       click_button('Create Beer')
-    }.to change { Beer.count }.by(0)
+    }.to change{Beer.count}.by(0)
+    expect(page).to have_content "Name can't be blank"
   end
 end

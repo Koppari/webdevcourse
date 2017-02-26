@@ -1,10 +1,57 @@
 <h1>Ratings</h1>
-
 <p> Number of ratings: <%= @ratings.count %> </p>
 
+<p>Best beers</p>
+<tbody>
 <ul>
-	<% @ratings.each do |rating| %>
-	  <li> <%= rating %> <%= link_to rating.user.username, user_path(rating.user_id) %></li>
-	<% end %>
-</ul>
 
+  <% @top_beers.each do |beer| %>
+      <li> <%= beer.name %>  </li>
+      <li> <%= beer.average_rating %>  </li>
+  <% end %>
+</ul>
+</tbody>
+
+
+<p>Best breweries</p>
+<tbody>
+<ul>
+
+  <% @top_breweries.each do |brewery| %>
+      <li> <%= brewery.name %>  </li>
+  <% end %>
+</ul>
+</tbody>
+
+
+<p>Best styles</p>
+<tbody>
+<ul>
+  <% @top_styles.each do |style| %>
+      <li> <%= style.name %>  </li>
+  <% end %>
+</ul>
+</tbody>
+
+
+<p>Most ratings</p>
+<tbody>
+<ul>
+  <% User.best_raters.each do |user| %>
+      <li> <%= user.username + ' - ' + user.ratings.count.to_s %> ratings</li>
+  <% end %>
+</ul>
+</tbody>
+
+<p>Recent ratings</p>
+<tbody>
+<ul>
+  <% Rating.recent.each do |rating| %>
+      <li> <%= rating %> <%= link_to 'delete', rating_path(rating.id), method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+  <% end %>
+</ul>
+</tbody>
+
+<br>
+
+<%= link_to 'New Rating', new_rating_path%>

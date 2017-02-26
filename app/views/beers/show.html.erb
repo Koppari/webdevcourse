@@ -28,10 +28,9 @@ Has <%= pluralize(@beer.ratings.count, "rating") %>, average <%= @beer.average_r
 
     <%= form_for(@rating) do |f| %>
         <%= f.hidden_field :beer_id %>
-        Score: <%= f.number_field :score %>
-        <%= f.submit %>
+        score: <%= f.number_field :score %>
+        <%= f.submit class:"btn btn-primary" %>
     <% end %><br>
 
     <%= link_to 'Edit', edit_beer_path(@beer) %>
-    <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>

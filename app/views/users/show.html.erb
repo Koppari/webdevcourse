@@ -7,7 +7,7 @@
 <% if @user.ratings.empty? %>
     Has made no ratings yet.
 <% else %>
-    Has made <%= pluralize(@user.ratings.count, "rating") %> with an average of <%= @user.rating_average %>
+    Has made <%= pluralize(@user.ratings.count, "rating") %> with an average of <%= @user.average_rating %>
 <% end %>
 
 <% if @user.beer_clubs.any? %>
@@ -48,6 +48,6 @@
 <br><br>
 
 <% if @user==current_user%>
-    <%= link_to 'change password', edit_user_path(@user) %> <br>
-    <%= link_to 'destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }  %>
+    <%= link_to 'change password', edit_user_path(@user), class:'btn btn-primary' %>
+    <%= link_to 'destroy your account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'  %>
 <% end %>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Beer styles</h1>
+<h1>Beer styles</h1><br>
 
 <table class="table table-hover">
   <thead>
@@ -14,8 +14,8 @@
   <% @styles.each do |style| %>
       <tr>
         <td><%= link_to style.name, style_path(style.id) %></td>
-        <td><%= link_to 'Edit', edit_style_path(style) if current_user %></td>
-        <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' } if current_user %></td>
+        <td><%= link_to 'Edit', edit_style_path(style), class:'btn btn-primary' if current_user %></td>
+        <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' if current_user %></td>
       </tr>
   <% end %>
   </tbody>
@@ -24,5 +24,5 @@
 <br>
 
 <% if current_user %>
-<%= link_to 'New Style', new_style_path %>
+    <%= link_to('New style', new_style_path, class:'btn btn-primary') if current_user %>
 <% end %>
