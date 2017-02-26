@@ -43,8 +43,16 @@ class User < ActiveRecord::Base
 
   def favorite_brewery
     return nil if ratings.empty?
-    return nil if beers.empty?
-    beers.joins("INNER JOIN breweries ON beers.brewery_id = breweries.id").group("breweries.name").order('AVG(ratings.score) ASC').last.brewery.name
+
+    ratings_of_breweries = ratings.group_by { |r| r.beer.brewery }
+    averages_of_breweries = []
+    ratings_of_breweries.each do |brewery, ratings|
+      averages_of_breweries << {
+          brewery: brewery,
+          rating: ratings.map(&:score).sum / ratings.count.to_f
+      }
+    end
+    averages_of_breweries.sort_by{ |b| -b[:rating] }.first[:brewery]
   end
 
 end
