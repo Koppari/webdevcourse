@@ -2,12 +2,16 @@ Rails.application.routes.draw do
   resources :styles
   resources :memberships
   resources :beer_clubs
-  resources :users
-  resources :beers
+  resources :users do
+    post 'toggle_frozen', on: :member
+  end
   resources :beers
   resources :breweries
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
+
+  get 'beerlist', to:'beers#list'
+  get 'brewerieslist', to:'breweries#list'
 
   resources :places, only:[:index, :show]
   post 'places', to:'places#search'

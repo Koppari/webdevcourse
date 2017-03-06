@@ -51,3 +51,7 @@
     <%= link_to 'change password', edit_user_path(@user), class:'btn btn-primary' %>
     <%= link_to 'destroy your account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'  %>
 <% end %>
+
+<% if admin_user %>
+    <%= link_to "freeze", toggle_frozen_user_path(@user.id), method: :post, class: "btn btn-primary" %>
+<% end %>

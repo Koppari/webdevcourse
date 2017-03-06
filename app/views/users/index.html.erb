@@ -16,6 +16,11 @@
         <tr>
           <td><%= link_to user.username, user %></td>
         </tr>
+        <td>
+          <% if user.blocked? %>
+              <span class="label label-info">acoount frozen</span>
+          <% end %>
+        </td>
     <% end %>
     </tbody>
   </table>
