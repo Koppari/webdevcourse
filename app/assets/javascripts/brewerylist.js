@@ -24,3 +24,28 @@ BREWERIES.sort_by_year = function(){
         return a.year.toUpperCase().localeCompare(b.year.toUpperCase());
     });
 };
+
+$(document).ready(function () {
+    if ( $("#brewerytable").length>0 ) {
+
+        $("#name").click(function (e) {
+            BREWERIES.sort_by_name();
+            BREWERIES.show();
+            e.preventDefault();
+        });
+
+        $("#year").click(function (e) {
+            BREWERIES.sort_by_year();
+            BREWERIES.show();
+            e.preventDefault();
+        });;
+
+
+        $.getJSON('breweries.json', function (breweries) {
+            BREWERIES.list = breweries;
+            BREWERIES.sort_by_name;
+            BREWERIES.show();
+        });
+
+    }
+});
